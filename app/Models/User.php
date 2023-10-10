@@ -4,11 +4,16 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class User extends Authenticatable
 {
@@ -17,6 +22,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -58,4 +64,45 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function phones(): MorphMany
+    {
+        return $this->morphMany(Phone::class, 'phoneable');
+    }
+
+    public function client(): HasOne
+    {
+        return $this->hasOne(Client::class);
+    }
+
+    public function company(): HasOne
+    {
+        return $this->hasOne(Client::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    protected $allowIncluded = ['phones', 'orders'];
+
+    public function scopeIncluded(Builder $query)
+    {
+        if (empty($this->allowIncluded) || empty(request('included'))) {
+            return;
+        }
+
+        $relations = explode(',', request('included'));
+
+        $allowIncluded = collect($this->allowIncluded);
+
+        foreach ($relations as $key => $relationship) {
+            if (!$allowIncluded->contains($relationship)) {
+                unset($relations[$key]);
+            }
+        }
+
+        return $query->with($relations);
+    }
 }

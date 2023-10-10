@@ -15,6 +15,26 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <x-nav-link href="{{ route('page.user') }}" :active="request()->routeIs('page.user')">
+                        {{ __('User') }}
+                    </x-nav-link>
+<!--
+                    <x-nav-link href="{{ route('page.company') }}" :active="request()->routeIs('page.company')">
+                        {{ __('Company') }}
+                    </x-nav-link>
+-->
+                    <x-nav-link href="{{ route('page.category') }}" :active="request()->routeIs('page.category')">
+                        {{ __('Category') }}
+                    </x-nav-link>
+
+                    <x-nav-link href="{{ route('page.product') }}" :active="request()->routeIs('page.product')">
+                        {{ __('Product') }}
+                    </x-nav-link>
+
+                    <x-nav-link href="{{ route('page.order') }}" :active="request()->routeIs('page.order')">
+                        {{ __('Order') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -141,6 +161,26 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="{{ route('page.user') }}" :active="request()->routeIs('page.user')">
+                {{ __('User') }}
+            </x-responsive-nav-link>
+<!--
+            <x-responsive-nav-link href="{{ route('page.company') }}" :active="request()->routeIs('page.company')">
+                {{ __('Company') }}
+            </x-responsive-nav-link>
+-->
+            <x-responsive-nav-link href="{{ route('page.category') }}" :active="request()->routeIs('page.category')">
+                {{ __('Category') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="{{ route('page.product') }}" :active="request()->routeIs('page.product')">
+                {{ __('Product') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="{{ route('page.order') }}" :active="request()->routeIs('page.order')">
+                {{ __('Order') }}
             </x-responsive-nav-link>
         </div>
 
