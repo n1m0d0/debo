@@ -14,6 +14,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -23,6 +24,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use SoftDeletes;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.

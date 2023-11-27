@@ -56,6 +56,8 @@ class ComponentUser extends Component
         $user->password = bcrypt('123456789');
         $user->save();
 
+        $user->assignRole('admin');
+
         $this->clear();
 
         toast()

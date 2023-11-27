@@ -67,6 +67,18 @@ class PhoneController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $phone = Phone::findOrFail($id);
+            $phone->delete();
+            return new PhoneResource($phone);
+        } catch (\Exception $e) {
+            return response()->json([
+                'is_success' => false,
+                'message'   => 'Validation errors',
+                'errors'  => [
+                    'id' => 'Id not found!'
+                ],
+            ]);
+        }
     }
 }

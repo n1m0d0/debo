@@ -16,7 +16,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::paginate(20);
+        $orders = Order::included()->paginate(20);
         return new OrderCollection($orders);
     }
 
@@ -39,7 +39,7 @@ class OrderController extends Controller
     public function show(string $id)
     {
         try {
-            $order = Order::findOrFail($id);
+            $order = Order::included()->findOrFail($id);
             return new OrderResource($order);
         } catch (\Exception $e) {
             return response()->json([
